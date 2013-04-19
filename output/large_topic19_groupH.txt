@@ -1,0 +1,10 @@
+topic19 Q0 sci.space/60779 1 141.11432 groupH_large
+topic0 Q0 misc.forsale/74809 2 122.830414 groupH_large
+topic0 Q0 comp.sys.mac.hardware/52187 3 122.51002 groupH_large
+topic0 Q0 rec.autos/102968 4 121.81492 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/61105 5 120.85264 groupH_large
+topic0 Q0 sci.crypt/15361 6 120.06075 groupH_large
+topic0 Q0 sci.crypt/15755 7 119.139915 groupH_large
+topic0 Q0 talk.politics.guns/55085 8 117.99999 groupH_large
+topic0 Q0 sci.crypt/15411 9 117.60629 groupH_large
+topic0 Q0 talk.politics.guns/55107 10 116.94819 groupH_large

@@ -1,0 +1,10 @@
+topic20 Q0 comp.sys.ibm.pc.hardware/60964 1 197.76959 groupH_large
+topic0 Q0 sci.med/59456 2 195.02325 groupH_large
+topic0 Q0 talk.religion.misc/83913 3 187.16446 groupH_large
+topic0 Q0 sci.crypt/15402 4 184.57013 groupH_large
+topic0 Q0 sci.electronics/53706 5 182.28198 groupH_large
+topic0 Q0 talk.politics.misc/178396 6 181.99715 groupH_large
+topic0 Q0 comp.graphics/38885 7 181.55986 groupH_large
+topic0 Q0 sci.space/61413 8 181.16418 groupH_large
+topic0 Q0 comp.os.ms-windows.misc/10101 9 181.05806 groupH_large
+topic0 Q0 sci.med/59470 10 180.62581 groupH_large

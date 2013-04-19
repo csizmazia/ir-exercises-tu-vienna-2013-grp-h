@@ -1,0 +1,10 @@
+topic17 Q0 talk.politics.misc/176845 1 123.56577 groupH_large
+topic0 Q0 comp.sys.mac.hardware/52165 2 123.03117 groupH_large
+topic0 Q0 comp.os.ms-windows.misc/9570 3 121.699936 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/60579 4 119.650856 groupH_large
+topic0 Q0 comp.graphics/38254 5 118.9562 groupH_large
+topic0 Q0 rec.motorcycles/104810 6 117.5895 groupH_large
+topic0 Q0 comp.windows.x/66962 7 117.589455 groupH_large
+topic0 Q0 sci.med/58894 8 117.34987 groupH_large
+topic0 Q0 comp.windows.x/67212 9 116.43824 groupH_large
+topic0 Q0 comp.sys.mac.hardware/51719 10 116.07332 groupH_large

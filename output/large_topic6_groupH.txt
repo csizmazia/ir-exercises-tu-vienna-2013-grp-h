@@ -1,0 +1,10 @@
+topic6 Q0 misc.forsale/76165 1 248.30254 groupH_large
+topic0 Q0 talk.politics.misc/178958 2 220.02255 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/60964 3 208.11137 groupH_large
+topic0 Q0 misc.forsale/74736 4 205.47769 groupH_large
+topic0 Q0 misc.forsale/76074 5 203.61336 groupH_large
+topic0 Q0 talk.politics.misc/178396 6 203.26376 groupH_large
+topic0 Q0 misc.forsale/76247 7 202.3625 groupH_large
+topic0 Q0 comp.os.ms-windows.misc/10201 8 200.52766 groupH_large
+topic0 Q0 comp.graphics/39062 9 197.90318 groupH_large
+topic0 Q0 misc.forsale/76259 10 193.9226 groupH_large

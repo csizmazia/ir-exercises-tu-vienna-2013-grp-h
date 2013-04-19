@@ -1,0 +1,10 @@
+topic9 Q0 sci.electronics/54340 1 140.91652 groupH_large
+topic0 Q0 sci.med/58153 2 131.03786 groupH_large
+topic0 Q0 rec.autos/103502 3 129.19603 groupH_large
+topic0 Q0 rec.autos/102979 4 129.09763 groupH_large
+topic0 Q0 talk.politics.misc/177015 5 129.06627 groupH_large
+topic0 Q0 sci.crypt/15738 6 128.61179 groupH_large
+topic0 Q0 comp.sys.mac.hardware/50483 7 128.51266 groupH_large
+topic0 Q0 comp.graphics/38621 8 128.45158 groupH_large
+topic0 Q0 comp.graphics/38254 9 128.06166 groupH_large
+topic0 Q0 comp.sys.mac.hardware/51867 10 127.8216 groupH_large

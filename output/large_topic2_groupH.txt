@@ -1,0 +1,10 @@
+topic2 Q0 talk.religion.misc/83561 1 253.19849 groupH_large
+topic0 Q0 comp.sys.mac.hardware/50483 2 227.5343 groupH_large
+topic0 Q0 rec.sport.baseball/104949 3 225.97244 groupH_large
+topic0 Q0 comp.sys.mac.hardware/51585 4 225.43219 groupH_large
+topic0 Q0 talk.politics.misc/178699 5 225.19464 groupH_large
+topic0 Q0 soc.religion.christian/20941 6 224.17567 groupH_large
+topic0 Q0 talk.politics.misc/178620 7 223.61842 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/61097 8 221.86063 groupH_large
+topic0 Q0 soc.religion.christian/20953 9 221.02922 groupH_large
+topic0 Q0 talk.politics.guns/54197 10 220.9935 groupH_large

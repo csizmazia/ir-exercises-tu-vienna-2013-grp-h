@@ -1,0 +1,10 @@
+topic3 Q0 talk.politics.mideast/75422 1 265.96713 groupH_large
+topic0 Q0 talk.politics.guns/54468 2 256.73624 groupH_large
+topic0 Q0 talk.politics.misc/176959 3 248.83868 groupH_large
+topic0 Q0 sci.crypt/15646 4 243.18468 groupH_large
+topic0 Q0 sci.crypt/15345 5 239.99628 groupH_large
+topic0 Q0 rec.sport.hockey/53666 6 237.88974 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/61097 7 236.80298 groupH_large
+topic0 Q0 talk.politics.guns/55233 8 235.7138 groupH_large
+topic0 Q0 sci.crypt/15538 9 235.14601 groupH_large
+topic0 Q0 talk.politics.guns/54493 10 232.13564 groupH_large

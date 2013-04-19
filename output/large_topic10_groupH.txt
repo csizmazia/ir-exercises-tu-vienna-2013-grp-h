@@ -1,0 +1,10 @@
+topic10 Q0 comp.graphics/38884 1 130.28026 groupH_large
+topic0 Q0 comp.windows.x/67048 2 128.58244 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/60424 3 128.11092 groupH_large
+topic0 Q0 comp.os.ms-windows.misc/10073 4 128.07544 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/60417 5 127.760185 groupH_large
+topic0 Q0 rec.motorcycles/104389 6 127.451675 groupH_large
+topic0 Q0 comp.windows.x/67238 7 127.01296 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/60440 8 126.53859 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/61048 9 126.52566 groupH_large
+topic0 Q0 misc.forsale/75995 10 126.28952 groupH_large

@@ -18,7 +18,8 @@ public class DFRScoringMethod implements IScoringMethod {
 	}
 	
 	/**
-	 * DFR weighting for the given parameters. 
+	 * DFR scoring for the given parameters.
+	 * Scoring is done using the DFRee algorithm found in org.terrier.matching.models.DFRee 
 	 * 
 	 * @param tfQuery The term frequency of the term in the query
 	 * @param tfDocument The term frequency of the term in the document

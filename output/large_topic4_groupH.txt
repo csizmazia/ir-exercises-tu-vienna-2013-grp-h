@@ -1,0 +1,10 @@
+topic4 Q0 sci.electronics/53720 1 177.8191 groupH_large
+topic0 Q0 comp.os.ms-windows.misc/9590 2 160.33907 groupH_large
+topic0 Q0 comp.sys.ibm.pc.hardware/60955 3 158.35562 groupH_large
+topic0 Q0 talk.religion.misc/83600 4 156.1341 groupH_large
+topic0 Q0 alt.atheism/53156 5 156.1341 groupH_large
+topic0 Q0 comp.windows.x/68227 6 154.03104 groupH_large
+topic0 Q0 rec.sport.hockey/53694 7 153.99974 groupH_large
+topic0 Q0 talk.politics.guns/54593 8 153.73973 groupH_large
+topic0 Q0 rec.sport.baseball/104457 9 153.16626 groupH_large
+topic0 Q0 comp.graphics/38885 10 152.97922 groupH_large

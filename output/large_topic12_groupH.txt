@@ -1,0 +1,10 @@
+topic12 Q0 misc.forsale/76468 1 154.2759 groupH_large
+topic0 Q0 misc.forsale/74820 2 135.72542 groupH_large
+topic0 Q0 misc.forsale/76851 3 127.1979 groupH_large
+topic0 Q0 comp.windows.x/68137 4 126.33318 groupH_large
+topic0 Q0 misc.forsale/76346 5 125.69967 groupH_large
+topic0 Q0 misc.forsale/75923 6 122.326675 groupH_large
+topic0 Q0 misc.forsale/74761 7 121.76235 groupH_large
+topic0 Q0 misc.forsale/76506 8 121.345215 groupH_large
+topic0 Q0 misc.forsale/75947 9 121.23042 groupH_large
+topic0 Q0 misc.forsale/76360 10 121.222984 groupH_large
