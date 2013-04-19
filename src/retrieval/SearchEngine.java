@@ -31,7 +31,7 @@ public class SearchEngine
 	
 	private boolean useStemming;
 	
-	private Scanner scanner;
+	private Scanner indexScanner;
 	
 	private IScoringMethod scoringMethod;
 	
@@ -58,7 +58,7 @@ public class SearchEngine
 	}
 	
 	private void loadVocabularyFromIndex() {
-		System.out.print("Loading vocabulary... ");
+		System.out.println("Loading vocabulary... ");
 		
 		vocabulary = new Vocabulary(1);
 		
@@ -66,8 +66,8 @@ public class SearchEngine
 		int attributeCounter = 0;
 		int termCounter = 0;
 		
-		while (scanner.hasNext()) {
-			nextLine = scanner.nextLine().toLowerCase();
+		while (indexScanner.hasNext()) {
+			nextLine = indexScanner.nextLine().toLowerCase();
 			if (nextLine.length() < 1) {
 				continue;
 			}
@@ -93,20 +93,9 @@ public class SearchEngine
 		System.out.println("Vocabulary contains "+termCounter+" terms. ");
 	}
 	
-	private void queryIndex(String queryDocument) {
-		Iterator<Map.Entry<Integer, Float>> queryIterator;
-		Iterator<Map.Entry<Integer, Float>> documentIterator;
-		Map.Entry<Integer, Float> nextQueryEntry;
-		Map.Entry<Integer, Float> nextDocumentEntry;
-
-		String nextLine;
-		
-		RetrievalResult currentRetrievalResult = new RetrievalResult();
-		
-		ArrayList<Map.Entry<Integer, Float>> documentVector = new ArrayList<Map.Entry<Integer, Float>>();
-		
-		while (scanner.hasNext()) {
-			nextLine = scanner.nextLine();
+	private void queryIndex() {
+		while (indexScanner.hasNext()) {
+			String nextLine = indexScanner.nextLine();
 			
 			if (nextLine.length() == 0 || nextLine.charAt(0) != '{') {
 				System.err.println("@DATA section contains invalid line:");
@@ -114,9 +103,9 @@ public class SearchEngine
 				break;
 			}
 			
-			documentVector.clear();
+			ArrayList<Map.Entry<Integer, Float>> documentVector = new ArrayList<Map.Entry<Integer, Float>>();
 			
-			int documentLength = 0; // length of the current document, i.e. number of words in the document
+			int documentLength = 0; // number of terms in the document
 			
 			int attributeBeginning = 1;
 			int attributeMiddle = nextLine.indexOf(' ', attributeBeginning);
@@ -128,8 +117,8 @@ public class SearchEngine
 				break;
 			}
 			
-			currentRetrievalResult = new RetrievalResult();
-			currentRetrievalResult.setTopic(queryDocument.substring(queryDocument.indexOf('/')+1));
+			RetrievalResult currentRetrievalResult = new RetrievalResult();
+			//currentRetrievalResult.setTopic(queryDocument.substring(queryDocument.indexOf('/')+1));
 			
 			while(attributeMiddle != -1 && attributeEnd != -1 && attributeMiddle < attributeEnd) {
 				int attributeId = Integer.parseInt(nextLine.substring(attributeBeginning, attributeMiddle));
@@ -146,7 +135,7 @@ public class SearchEngine
 						break;
 					default:
 						float value = Float.parseFloat(nextLine.substring(attributeMiddle, attributeEnd));
-						documentLength += (value>0?1:0);
+						documentLength += (scoringMethod.requiresPlainTf()?value:1);
 						documentVector.add(new AbstractMap.SimpleEntry<Integer, Float>(attributeId-IIndexer.META_FIELD_COUNT, value));
 				}
 				
@@ -157,22 +146,18 @@ public class SearchEngine
 					attributeEnd = nextLine.indexOf('}');
 				}
 			}
-			/*System.out.println(nextLine);
-			System.out.println(documentVector);
-			System.out.println(currentRetrievalResult);
-			break;*/
 			
 			double similarity = 0.0;
 			double documentVectorLength = 0.0;
 			double queryVectorLength = 0.0;
 			
-			queryIterator = fastAccessQueryVector.iterator();
-			documentIterator = documentVector.iterator();
+			Iterator<Map.Entry<Integer, Float>> queryIterator = fastAccessQueryVector.iterator();
+			Iterator<Map.Entry<Integer, Float>> documentIterator = documentVector.iterator();
 			
-			nextDocumentEntry = null;
-			nextQueryEntry = null;
+			Map.Entry<Integer, Float> nextQueryEntry = null;
+			Map.Entry<Integer, Float> nextDocumentEntry = null;
 			
-			if (documentIterator.hasNext() && queryIterator.hasNext()) {
+			if(queryIterator.hasNext() && documentIterator.hasNext()) {
 				nextDocumentEntry = documentIterator.next();
 				nextQueryEntry = queryIterator.next();
 			}
@@ -210,6 +195,7 @@ public class SearchEngine
 					nextDocumentEntry = documentIterator.next();
 				}
 			}
+			
 			if(scoringMethod.requiresVectorLengths()) {
 				while (queryIterator.hasNext()) {
 					queryVectorLength += Math.pow(queryIterator.next().getValue(), 2.0);
@@ -229,7 +215,7 @@ public class SearchEngine
 			tmpSearchResults.add(currentRetrievalResult, similarity);
 		}
 		
-		scanner.close();
+		indexScanner.close();
 		Iterator<RetrievalResult> resultIterator = tmpSearchResults.getAllScores().iterator();
 		int counter = 1;
 		while (resultIterator.hasNext()) {
@@ -245,18 +231,16 @@ public class SearchEngine
 		zipTokenStream.initialize();
 		
 		DocumentTermList queryTermList = new DocumentTermList();
-		int termID;
 		
 		while(zipTokenStream.hasNext()) { // we assume that the query fits comfortably into the main memory.
 			Token nextToken = zipTokenStream.next();
-			termID = vocabulary.add(nextToken.getTerm(), nextToken.getDoc().getId()).getTermID(); // we add the term to the overall vocabulary (needed if our query document contains new terms).
+			int termID = vocabulary.add(nextToken.getTerm(), nextToken.getDoc().getId()).getTermID(); // we add the term to the overall vocabulary (needed if our query document contains new terms).
 			queryTermList.add(termID);
 		}
 		vocabulary.setTotalNumberOfDocuments(1); // we have only one query document
 		vocabulary.finalize();
-		queryTermList.sortTermsByID(); // this is now our sparse query vector
+		queryTermList.sortTermsByID();
 		
-		// copy values to an ArrayList to speed up random access:
 		fastAccessQueryVector = new ArrayList<Map.Entry<Integer, Float>>(queryTermList.getDocTermEntries().entrySet());
 		
 		if(!scoringMethod.requiresPlainTf()) {
@@ -289,34 +273,29 @@ public class SearchEngine
 	 * @throws IOException 
 	 */
 	public void retrieveAndWriteQueries(int K, File collectionFile, File queryFile) throws IOException {				
-		String queryString = "";
 		try {
-			FileInputStream fis = new FileInputStream(queryFile);
-			Scanner queriesScanner = new Scanner(fis);
-			int counter = 1;
+			Scanner queriesScanner = new Scanner(new FileInputStream(queryFile));
+			int queryCounter = 1;
 			System.out.println("Working... ");
 			String collectionFileName = collectionFile.getName().substring(0, collectionFile.getName().lastIndexOf('.'));
 			while (queriesScanner.hasNext()) {
-				queryString = collectionFileName+"/"+queriesScanner.nextLine(); // 20_newsgroups_subset/
-				retrieveTop(K, collectionFile, queryString);
-				writeResultsToFile(null, counter++);
-				System.out.println(counter - 1+" queries processed.");
-				// TODO
-				break;
+				String queryDocument = collectionFileName+"/"+queriesScanner.nextLine(); // 20_newsgroups_subset/
+				retrieveTop(K, collectionFile, queryDocument);
+				writeResultsToFile(queryCounter);
+				System.out.println(queryCounter+" queries processed.");
+				queryCounter++;
 			}
 			System.out.println("Done!");
-			
-			
 		}
 		catch (IOException ioe) {
-			System.err.println("IOException while processing queries! --Stack Trace follows.");
+			System.err.println("IOException while reading queryFile!");
 			ioe.printStackTrace();
 		}
 	}
 	
 	public ArrayList<RetrievalResult> retrieveTop(int K, File collectionFile, String queryDocument) throws IOException {
 		GZIPInputStream gzis = new GZIPInputStream(new FileInputStream(new File(indexDirectory+indexName+scoringMethod.getRequiredIndexSuffix()+".arff.gz")));
-		scanner = new Scanner(gzis);
+		indexScanner = new Scanner(gzis);
 		
 		searchResults = new ArrayList<RetrievalResult>(K);
 		tmpSearchResults = new SizedPriorityQueue<RetrievalResult>(K, true);
@@ -327,36 +306,25 @@ public class SearchEngine
 		
 		parseQuery(collectionFile, queryDocument);
 		
-		queryIndex(queryDocument);
+		queryIndex();
 		
 		return searchResults;
 	}
 
-	public void writeResultsToFile(String outputFilePath, int numberOfQuery) throws IOException {
+	public void writeResultsToFile(int numberOfQuery) throws IOException {
 		if (searchResults.size() == 0) {
 			System.out.println("No results to write to file!");
 			return;
 		}
-		String desiredFilePath = "output"+java.io.File.separator;
+
+		searchResults.get(0).setTopicNumber(numberOfQuery);
+		String resultFilePath = "output"+java.io.File.separator+searchResults.get(0).getDesiredFilename();
 		
-		if (outputFilePath != null) {
-			desiredFilePath = outputFilePath;
-		}
-		else {
-			searchResults.get(0).setTopicNumber(numberOfQuery);
-			desiredFilePath += searchResults.get(0).getDesiredFilename();
-		}
-	
+		Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(resultFilePath))));//, "UTF-8"));
 		
-		// medium_topic1_group10.txt
-		File file = new File(desiredFilePath);
-		
-		FileOutputStream fos = new FileOutputStream(file);
-		Writer out = new BufferedWriter(new OutputStreamWriter(fos));//, "UTF-8"));
-		
-		Iterator<RetrievalResult> it = searchResults.iterator();
-		while (it.hasNext()) {
-			out.write(it.next().toString()+"\n");
+		Iterator<RetrievalResult> resultsIterator = searchResults.iterator();
+		while (resultsIterator.hasNext()) {
+			out.write(resultsIterator.next().toString()+(resultsIterator.hasNext()?"\n":""));
 		}
 		
 		out.close();	

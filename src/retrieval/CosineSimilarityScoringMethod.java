@@ -28,7 +28,7 @@ public class CosineSimilarityScoringMethod implements IScoringMethod {
 	 * @return
 	 */
 	public double score(float tfQuery, float tfIdf, float tfCollection, long numberOfTokens, int documentLength) {
-		return Math.log10(1+tfQuery) * tfIdf;
+		return tfQuery * tfIdf;
 	}
 	
 	public double useVectorLenghts(double similarity, double queryVectorLength, double documentVectorLength) {

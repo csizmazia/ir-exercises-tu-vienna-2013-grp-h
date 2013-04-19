@@ -19,7 +19,7 @@ public class Vocabulary
 	
 	private int totalNumberOfDocuments = 0;
 	
-	public static int termID = 0;
+	private int termID = 0;
 	
 
 	public Vocabulary(int _size)
