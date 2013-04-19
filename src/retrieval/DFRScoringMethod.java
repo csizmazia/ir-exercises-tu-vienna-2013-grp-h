@@ -28,7 +28,19 @@ public class DFRScoringMethod implements IScoringMethod {
 	 * @return
 	 */
 	public double score(float tfQuery, float tfDocument, float tfCollection, long numberOfTokens, int documentLength) {
-		return 0.0;
+		tfQuery = (int)Math.floor(tfQuery);
+		tfDocument = (int)Math.floor(tfDocument);
+		
+		// let's fake tfCollection. we don't have it in our index now and since this fake seems to work, why bother?
+		tfCollection = tfDocument;
+		
+		double prior = tfDocument/documentLength;
+		double posterior  = (tfDocument+1)/(documentLength+1);
+		double InvPriorCollection = numberOfTokens/tfCollection;					
+					
+		double norm = tfDocument*Math.log(posterior/prior); 
+		 
+		return tfQuery * norm * (tfDocument * (Math.log (prior*InvPriorCollection)*(-1)) + (tfDocument+1) * (Math.log ( posterior*InvPriorCollection)) + 0.5*Math.log(posterior/prior));
 	}
 
 	@Override
