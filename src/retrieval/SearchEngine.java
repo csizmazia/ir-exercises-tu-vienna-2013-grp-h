@@ -324,7 +324,9 @@ public class SearchEngine
 		
 		Iterator<RetrievalResult> resultsIterator = searchResults.iterator();
 		while (resultsIterator.hasNext()) {
-			out.write(resultsIterator.next().toString()+(resultsIterator.hasNext()?"\n":""));
+			RetrievalResult result = resultsIterator.next();
+			result.setTopicNumber(numberOfQuery);
+			out.write(result.toString()+(resultsIterator.hasNext()?"\n":""));
 		}
 		
 		out.close();	
